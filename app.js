@@ -1,8 +1,3 @@
-function test(){
-    console.log("working")
-}
-
-test();
 
 // The gameboard Array
 const gameboard = [[null, null, null], [null, null, null], [null, null, null] ];
@@ -49,10 +44,11 @@ function getY(i) {
     return i % 3;
 }
 
+// check if there are any winners or if gameboard is full
 function processBoard(gameboard) {
     let winner = isRowComplete(gameboard);
     if (winner) {
-        endGame(winner + ' won');
+        endGame(winner);
         return;
     } 
     winner = isColumnComplete(gameboard);
@@ -68,5 +64,30 @@ function processBoard(gameboard) {
     if (isBoardFull(gameboard)) {
         endGame('There is no winner');
     }
+}
+// should return true or false
+function isRowComplete(gameboard) {
+    for (let i = 0; i < gameboard.length; i++) {
+        const row = gameboard[i];
+        if (row.every(square => square === row[0] && row[0] !== null)) {
+            console.log("There's a row winner")
+            // convert false to "O" and true to "X"
+            let winner = "";
+            if (row[0] === false) {
+                winner = "O";
+            } else {
+                winner = "X";
+            }
+            console.log(winner)
+            return winner; // Return the string of either "x" or "o"
+        }
+    }
+}
 
+function endGame(winner) {
+
+    const endGameMessage = document.getElementById("endGame");
+    endGameMessage.innerHTML = "the winner is " + winner
+
+    // TODO remove event listener from all remaining unclicked squares
 }
