@@ -1,0 +1,115 @@
+body {
+    background-color: #3b444b;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 10px;
+    width: 400px;
+    height: 400px;
+    margin: 0 auto;
+    background-color: #eee;
+}
+
+.grid-item {
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+
+/* for the "X" */
+
+.grid-item {
+    position: relative;
+}
+
+.cross::after,
+.cross::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60%;
+    height: 8px;
+    background-color: #000;
+}
+
+.cross::after {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.cross::before {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* For the "O" */
+
+.circle::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 60%;
+    border-radius: 50%;
+    border: 8px solid #000;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .circle {
+    height: 90px;
+    width: 90px;
+    border-radius: 50%;
+    border: 15px solid blue;
+    box-sizing: border-box;
+} */
+
+/* .cross {
+    height: 90px;
+    width: 90px;
+    position: relative;
+    transform: rotate(45deg);
+}
+
+.cross:beofre,
+.cross::after {
+    content: "";
+    position: absolute;
+    background-color: red;
+}
+
+.cross::before {
+    left: 50%;
+    width: 30%;
+    margin-left: -15%;
+    height: 100%;
+}
+
+.cross::after {
+    top: 50%;
+    height: 30%;
+    margin-top: -15%;
+    width: 100%;
+} */
