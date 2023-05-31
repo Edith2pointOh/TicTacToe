@@ -2,6 +2,10 @@ body {
     background-color: #3b444b;
 }
 
+.container {
+    text-align: center;
+}
+
 .grid-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -55,4 +59,12 @@ body {
     height: 60%;
     border-radius: 50%;
     border: 8px solid #000;
+}
+
+#endGame {
+    font-size: 30px;
+}
+
+.btnVisiblity {
+    display: none;
 }

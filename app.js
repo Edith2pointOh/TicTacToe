@@ -36,6 +36,14 @@ function handleSquareClick(event) {
     clickedSquare.removeEventListener("click", handleSquareClick);
 }
 
+const whosTurn = document.getElementById('whosTurn');
+
+if (!isX) {
+    whosTurn.innerHTML = "It is O's turn";
+} else {
+    whosTurn.innerHTML = "It is X's turn";
+}
+
 function getX(i) {
     return Math.floor(i/3);
 }
@@ -48,17 +56,17 @@ function getY(i) {
 function processBoard(gameboard) {
     let winner = isRowComplete(gameboard);
     if (winner) {
-        endGame(winner);
+        endGame(winner + 'won');
         return;
     } 
     winner = isColumnComplete(gameboard);
     if (winner) {
-        endGame(winner + ' won');
+        endGame(`${winner} wins!`);
         return;
     }
     winner = isDiagonalComplete(gameboard);
     if (winner) {
-        endGame(winner + ' won');
+        endGame(`${winner} wins!`);
         return;
     }
     if (isBoardFull(gameboard)) {
@@ -97,6 +105,19 @@ function isDiagonalComplete(gameboard) {
     }
 }
 
+function isBoardFull(gameboard) {
+    let noWinner = '';
+    for (let x = 0; x < gameboard.length; x++) {
+        for (let y = 0; y < gameboard.length; y++) {
+            if (gameboard[x][y] === null) {
+                return;
+            }
+        }
+   }
+   noWinner = "Sorry, there is no winner";
+   return noWinner;
+}
+
 // convert fasle to "O" and true to "x"
 function OorXforTheWin(bool) {
     let winner = "";
@@ -111,7 +132,15 @@ function OorXforTheWin(bool) {
 function endGame(winner) {
 
     const endGameMessage = document.getElementById("endGame");
-    endGameMessage.innerHTML = "the winner is " + winner
+    endGameMessage.innerHTML = winner;
 
-    // TODO remove event listener from all remaining unclicked squares
+//remove event listener from all squares
+    square.forEach(square => {
+        square.removeEventListener("click", handleSquareClick);
+    });
+
+// display reset button and functionality 
+    const resetBtn = document.getElementById("resetBtn");
+    resetBtn.classList.remove("btnVisiblity");
+
 }
