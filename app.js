@@ -5,6 +5,9 @@ const gameboard = [[null, null, null], [null, null, null], [null, null, null] ];
 // false = o, true = x
 let isX = false;
 
+const whosTurn = document.getElementById('whosTurn');
+whosTurn.innerHTML = "It is O's turn";
+
 // Get reference to all the cell elements
 const square = document.querySelectorAll(".grid-item");
 
@@ -20,9 +23,6 @@ function handleSquareClick(event) {
     const x = getX(i);
     const y = getY(i);
     gameboard[x][y] = isX;
-    console.log(i)
-    console.log(x, y)
-    console.log(gameboard);
 
     // add CSS class to the clicked square
     if (isX) {
@@ -31,18 +31,21 @@ function handleSquareClick(event) {
         clickedSquare.classList.add("circle");
     }
     isX = !isX;
+    displayWhosTurn();
     processBoard(gameboard);
     // Remove click event listener from the clicked square
     clickedSquare.removeEventListener("click", handleSquareClick);
 }
 
-const whosTurn = document.getElementById('whosTurn');
-
-if (!isX) {
-    whosTurn.innerHTML = "It is O's turn";
-} else {
-    whosTurn.innerHTML = "It is X's turn";
+// Display who's turn it is
+function displayWhosTurn() {
+    if (isX) {
+        whosTurn.innerHTML = "It is X's turn";
+    } else {
+        whosTurn.innerHTML = "It is O's turn";
+    }
 }
+
 
 function getX(i) {
     return Math.floor(i/3);
@@ -56,7 +59,7 @@ function getY(i) {
 function processBoard(gameboard) {
     let winner = isRowComplete(gameboard);
     if (winner) {
-        endGame(winner + 'won');
+        endGame(`${winner} wins!`);
         return;
     } 
     winner = isColumnComplete(gameboard);
@@ -94,17 +97,16 @@ function isColumnComplete(gameboard) {
 function isDiagonalComplete(gameboard) {
     const diagonal1 = [gameboard[0][0], gameboard[1][1], gameboard[2][2]];
     if (diagonal1.every(square => square === diagonal1[0] && diagonal1[0] !== null)) {
-        console.log("there's a diagonal winner")
         return OorXforTheWin(diagonal1[0]);
     }
 
     const diagonal2 = [gameboard[0][2], gameboard[1][1], gameboard[2][0]];
     if (diagonal2.every(square => square === diagonal2[0] && diagonal2[0] !== null)) {
-        console.log("there's a diagonal winner")
         return OorXforTheWin(diagonal2[0]);
     }
 }
 
+// Check if no one has won the game
 function isBoardFull(gameboard) {
     let noWinner = '';
     for (let x = 0; x < gameboard.length; x++) {
@@ -142,5 +144,9 @@ function endGame(winner) {
 // display reset button and functionality 
     const resetBtn = document.getElementById("resetBtn");
     resetBtn.classList.remove("btnVisiblity");
+    resetBtn.addEventListener('click', handlerReset);
+}
 
+function handlerReset() {
+    window.location.reload();
 }
